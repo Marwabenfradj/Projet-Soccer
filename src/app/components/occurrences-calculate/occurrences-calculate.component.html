@@ -1,0 +1,29 @@
+<app-banner [title]="'Occurrences Calculate'"></app-banner>
+
+<div class="container">
+  <div class="row">
+    <input
+      type="text"
+      [(ngModel)]="Text"
+      placeholder="Enter your text"
+    />
+
+    <input
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Enter substring"
+    />
+
+    <button (click)="OccurrencesCalculate()">Calculate</button>
+  </div>
+
+  <div class="results">
+    <h2>Number of Occurrences:</h2>
+    <p>{{ occurrenceCount }}</p>
+  </div>
+</div>
+  </div>
+</div>
+
+
+    

@@ -1,0 +1,46 @@
+<app-banner [title]="'Add team'"></app-banner>
+<div class="site-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 mx-auto text-center">
+        <form
+          #addEditPlayerForm="ngForm"
+          name="Form"
+          (ngSubmit)="addEditPlayer()"
+        >
+          <div class="form-group">
+            <input
+              type="text"
+              [(ngModel)]="player.name"
+              name="a"
+              placeholder="playerName"
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              [(ngModel)]="player.number"
+              name="b"
+              placeholder="playerNumber"
+            />
+          </div>
+          <div class="form-group">
+            <select [(ngModel)]="player.post" name="c">
+              <option value="GK">GK</option>
+              <option value="AV">AV</option>
+              <option value="CB">CB</option>
+            </select>
+          </div>
+          <div class="form-group text-center">
+            <input
+              type="submit"
+              class="btn btn-primary py-3 px-5"
+              [value]="title"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

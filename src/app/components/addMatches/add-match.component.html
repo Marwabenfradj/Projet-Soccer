@@ -1,0 +1,59 @@
+<app-banner [title]="'Add match'"></app-banner>
+<div class="site-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 mx-auto text-center">
+        <form
+          #addEditMatchForm="ngForm"
+          name="form"
+          (ngSubmit)="addEditMatch()"
+        >
+          <div class="form-group">
+            <input
+              type="text"
+              [(ngModel)]="match.teamOne"
+              name="a"
+              class="form-control"
+              placeholder="Team 1"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              [(ngModel)]="match.teamTwo"
+              name="b"
+              class="form-control"
+              placeholder="Team 2"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="number"
+              [(ngModel)]="match.scoreOne"
+              name="c"
+              class="form-control"
+              placeholder="Score 1"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="number"
+              [(ngModel)]="match.scoreTwo"
+              name="d"
+              class="form-control"
+              placeholder="Score 2"
+            />
+          </div>
+
+          <div class="form-group text-center">
+            <input
+              type="submit"
+              class="btn btn-primary py-3 px-5"
+              [value]="title"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
