@@ -10,8 +10,8 @@
               <th>id</th>
               <th>Player Name</th>
               <th>Player Number</th>
-              <th>Player Post</th>
-              <th>Player Team</th>
+              <th>Player age</th>
+              <th>Player position</th>
             </thead>
             <tbody>
               <tr *ngFor="let p of players" appColor>
@@ -23,9 +23,11 @@
                   <strong class="text-white">{{ p.number }}</strong>
                 </td>
                 <td>
-                  <strong class="text-white">{{ p.post }}</strong>
+                  <strong class="text-white">{{ p.age }}</strong>
                 </td>
-                <td>{{ displayTeamName(p.teamId) }}</td>
+                <td>
+                  <strong class="text-white">{{ p.position }}</strong>
+                </td>
               </tr>
 
               <!-- <button class="btn btn-danger" (click)="deleteMatch(m.id)">

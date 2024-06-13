@@ -17,4 +17,8 @@ export class PlayersService {
   }
 
   getPlayerById() {}
+
+  getAllPlayers() {
+    return this.http.get<{ players: any }>(this.playerUrl);
+  }
 }

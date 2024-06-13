@@ -1,12 +1,13 @@
-// import mongoose module
+//import mongoose module
+
 const mongoose = require("mongoose");
-//create TeamSchema
+// create TeamSchema
 const TeamSchema = mongoose.Schema({
   name: String,
-  date: Date,
-  description: String,
+  owner: String,
+  foundation: Date,
 });
 //Affect model name to schema
 const team = mongoose.model("Team", TeamSchema);
-// make player exportable
+// make team exportable
 module.exports = team;

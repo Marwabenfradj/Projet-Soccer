@@ -1,4 +1,4 @@
-<app-banner [title]="'Add team'"></app-banner>
+<app-banner [title]="'Add player'"></app-banner>
 <div class="site-section">
   <div class="container">
     <div class="row">
@@ -13,31 +13,38 @@
               type="text"
               [(ngModel)]="player.name"
               name="a"
-              placeholder="playerName"
+              class="form-control"
+              placeholder="name"
             />
           </div>
-
           <div class="form-group">
             <input
-              type="text"
+              type="number"
               [(ngModel)]="player.number"
               name="b"
-              placeholder="playerNumber"
+              class="form-control"
+              placeholder="number"
             />
           </div>
           <div class="form-group">
-            <select [(ngModel)]="player.post" name="c">
+            <input
+              type="number"
+              [(ngModel)]="player.age"
+              name="c"
+              class="form-control"
+              placeholder="age"
+            />
+          </div>
+          <div class="form-group">
+            <select class="col-lg-6" [(ngModel)]="player.position" name="c">
               <option value="GK">GK</option>
               <option value="AV">AV</option>
               <option value="CB">CB</option>
             </select>
           </div>
+
           <div class="form-group text-center">
-            <input
-              type="submit"
-              class="btn btn-primary py-3 px-5"
-              [value]="title"
-            />
+            <input type="submit" class="btn btn-primary py-3 px-5" />
           </div>
         </form>
       </div>

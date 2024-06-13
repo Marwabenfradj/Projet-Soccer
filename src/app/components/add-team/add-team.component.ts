@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
   selector: 'app-add-team',
@@ -9,15 +11,33 @@ import { FormGroup } from '@angular/forms';
 export class AddTeamComponent implements OnInit {
   team: any = {};
   addTeamForm!: FormGroup;
-  constructor() {}
+  id: any;
+  title: string = 'ADD Team';
 
-  ngOnInit(): void {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private tService: TeamsService
+  ) {}
+
+  ngOnInit(): void {
+    this.id = this.activatedRoute.snapshot.params['id'];
+    if (this.id) {
+      this.title = 'Edit Team';
+    }
+  }
 
   addTeam() {
-    console.log(this.team);
-    let T = JSON.parse(localStorage.getItem('teams') || '[]');
-    this.team.id = T.length === 0 ? 0 : T.at(-1).id + 1;
-    T.push(this.team);
-    localStorage.setItem('teams', JSON.stringify(T));
+    if (this.id) {
+      this.tService.addTeam(this.team).subscribe((res) => {
+        console.log('here response from BE', res);
+        this.router.navigate(['table-teams']);
+      });
+    } else {
+      this.tService.addTeam(this.team).subscribe((res) => {
+        console.log('here response from BE', res);
+        this.router.navigate(['table-teams']);
+      });
+    }
   }
 }

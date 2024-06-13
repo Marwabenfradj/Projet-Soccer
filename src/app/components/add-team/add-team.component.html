@@ -10,25 +10,25 @@
               [(ngModel)]="team.name"
               name="a"
               class="form-control"
-              placeholder="name"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              type="date"
-              [(ngModel)]="team.date"
-              name="b"
-              class="form-control"
-              placeholder="date de création"
+              placeholder="team name"
             />
           </div>
           <div class="form-group">
             <input
               type="text"
-              [(ngModel)]="team.description"
+              [(ngModel)]="team.owner"
+              name="b"
+              class="form-control"
+              placeholder="team owner"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="date"
+              [(ngModel)]="team.foundation"
               name="c"
               class="form-control"
-              placeholder="description"
+              placeholder="team foundation"
             />
           </div>
 

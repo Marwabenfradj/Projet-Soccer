@@ -13,7 +13,7 @@ export class AddMatchComponent implements OnInit {
   id: any;
   match: any = {};
   addEditMatchForm!: FormGroup;
-  title: string = 'ADD Match';
+  title: string = '';
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,

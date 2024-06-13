@@ -9,7 +9,7 @@ export class MatchesService {
   constructor(private http: HttpClient) {}
 
   addMatch(data: any) {
-    return this.http.post<{ message: any }>(this.matchUrl, data);
+    return this.http.post<'response'>(this.matchUrl, data);
   }
   search(data: any) {
     return this.http.post<{ message: any }>(this.matchUrl, data);

@@ -10,8 +10,8 @@
               <tr>
                 <th>id</th>
                 <th>Team Name</th>
+                <th>Team Owner</th>
                 <th>Team Foundation</th>
-                <th>Team Description</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -19,8 +19,8 @@
               <tr *ngFor="let t of teams">
                 <td>{{ t.id }}</td>
                 <td>{{ t.name }}</td>
+                <td>{{ t.owner }}</td>
                 <td>{{ t.foundation }}</td>
-                <td>{{ t.decription }}</td>
 
                 <!-- <button class="btn btn-danger" (click)="deleteMatch(m.id)">
                   Delete

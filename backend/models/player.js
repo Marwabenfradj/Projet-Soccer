@@ -1,12 +1,14 @@
-// import mongoose module
+//import mongoose module
+
 const mongoose = require("mongoose");
-//create Playerschema
-const playerSchema = mongoose.Schema({
+// create PlayerSchema
+const PlayerSchema = mongoose.Schema({
   name: String,
   number: Number,
-  post: String,
+  age: Number,
+  position: String,
 });
 //Affect model name to schema
-const player = mongoose.model("Player", playerSchema);
+const player = mongoose.model("Player", PlayerSchema);
 // make player exportable
 module.exports = player;

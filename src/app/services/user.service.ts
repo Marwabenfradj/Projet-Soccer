@@ -11,6 +11,13 @@ export class UserService {
   signUp(user: any) {
     console.log('user', user);
 
-    return this.http.post<{ msg: string }>(this.userUrl, user);
+    return this.http.post<{ msg: string }>(this.userUrl + '/signUp', user);
+  }
+
+  login(obj: any) {
+    return this.http.post<{ msg: string; user: any }>(
+      this.userUrl + '/login',
+      obj
+    );
   }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
   selector: 'app-table-teams',
@@ -7,13 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableTeamsComponent implements OnInit {
   teams: any = [];
-  constructor() {}
+  constructor(private tService: TeamsService, private router: Router) {}
 
   ngOnInit(): void {
-    this.getAllteams();
+    this.getAllTeams();
   }
 
-  getAllteams() {
-    this.teams = JSON.parse(localStorage.getItem('teams') || '[]');
+  getAllTeams() {
+    this.tService.getAllTeams().subscribe((res) => {
+      this.teams = res.teams;
+    });
+    console.log(this.teams);
   }
 }

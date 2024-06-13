@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PlayersService } from 'src/app/services/players.service';
 
 @Component({
   selector: 'app-table-players',
@@ -7,23 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TablePlayersComponent implements OnInit {
   players: any = [];
-  teams: any = [];
-  constructor() {}
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private pService: PlayersService
+  ) {}
 
   ngOnInit(): void {
     this.getAllPlayers();
-    this.getAllTeams();
   }
 
   getAllPlayers() {
-    this.players = JSON.parse(localStorage.getItem('players') || '[]');
+    this.pService.getAllPlayers().subscribe((res) => {
+      this.players = res.players;
+    });
+    console.log(this.players);
   }
 
-  getAllTeams() {
-    this.teams = JSON.parse(localStorage.getItem('teams') || '[]');
-  }
-
-  displayTeamName(id: any) {
-    return this.teams.find((elm: any) => elm.id == id).name || '';
-  }
+  // displayTeamName(id: any) {
+  //   return this.teams.find((elm: any) => elm.id == id).name || '';
+  // }
 }

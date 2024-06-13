@@ -4,7 +4,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 //import mongoose module
 const mongoose = require("mongoose");
+//import bcrypt module
+const bcrypt = require("bcrypt");
 
+// import jwt module
+const jwt = require("jsonwebtoken");
+// import express session module
+const session = require("express-session");
 // create an express application (app)
 const app = express();
 
@@ -29,6 +35,13 @@ app.use((req, res, next) => {
 
   next();
 });
+// session configuration
+const secretKey = "your-secret-key";
+app.use(
+  session({
+    secret: secretKey,
+  })
+);
 // Models Importation
 
 const Match = require("./models/match");
@@ -37,21 +50,55 @@ const Team = require("./models/team");
 const User = require("./models/user");
 
 //business logic
-//Business Logic : signUp
-app.post("/users", (req, res) => {
+//Business Logic : signUp(add user)
+app.post("/users/signUp", (req, res) => {
   console.log("here into BL signUp", req.body);
-  let user = new User(req.body);
-  user.save();
-  res.json({ msg: "Added with success" });
+  bcrypt.hash(req.body.password, 8).then((cryptedPwd) => {
+    console.log("here crypted Pwd", cryptedPwd);
+    req.body.password = cryptedPwd;
+    let user = new User(req.body);
+    user.save();
+    res.json({ msg: "Added with success" });
+  });
+});
+//Business Logic : login (search user by Email & Password)
+app.post("/users/login", (req, res) => {
+  console.log("here user", req.body);
+
+  // Search User by Email
+  User.findOne({ email: req.body.email }).then((user) => {
+    //User is null
+    if (!user) {
+      return res.json({ msg: "email not found" });
+    } else {
+      //Email exist //compare PWDs
+      bcrypt.compare(req.body.password, user.password).then((pwdCompare) => {
+        console.log("pwdCompare", pwdCompare);
+        if (!pwdCompare) {
+          res.json({ msg: "check pwd" });
+        } else {
+          let userToSend = {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            role: user.role,
+          };
+          // If the user is valid, generate a JWT token
+          const token = jwt.sign(userToSend, secretKey, { expiresIn: "1h" });
+
+          res.json({ msg: "welcome", user: token });
+        }
+      });
+    }
+  });
 });
 
 //Business Logic : Add Match
 app.post("/matches", (req, res) => {
   console.log("here into BL:Add Match", req.body);
-
   let matchObj = new Match(req.body);
   matchObj.save();
-  res.json({ message: "Added with success" });
+  res.send("response");
+  // res.json({ message: "Added with success" });
 });
 //Business Logic : GEt All Matches
 app.get("/matches", (req, res) => {
@@ -69,16 +116,7 @@ app.get("/matches/:id", (req, res) => {
     res.json({ match: doc });
   });
 });
-
 //Business Logic : Update Match
-// app.put("/matches/:id", (req, res) => {
-//   console.log("here into BL:Update Match", req.body);
-//   Match.findByIdAndUpdate({ _id: req.params.id }, req.body).then((response) => {
-//     console.log("here response after update", response);
-//     res.json({ msg: response });
-//   });
-// });
-
 app.put("/matches", (req, res) => {
   console.log("here into BL:Update match", req.body);
   Match.updateOne({ _id: req.body._id }, req.body).then((response) => {
@@ -111,10 +149,18 @@ app.post("/matches/search", (req, res) => {
 
 //Business Logic : Add Player
 app.post("/players", (req, res) => {
-  console.log("here into BL Add player", req.body);
+  console.log("here into BL: Add player", req.body);
   let playerObj = new Player(req.body);
   playerObj.save();
   res.json({ message: "Added with success" });
+});
+//Business Logic : GEt All players
+app.get("/players", (req, res) => {
+  console.log("here into BL:Get All Players");
+  Player.find().then((docs) => {
+    console.log("Here docs", docs);
+    res.json({ players: docs });
+  });
 });
 //Business Logic : Update Player
 app.put("/players", (req, res) => {
@@ -126,6 +172,22 @@ app.put("/players", (req, res) => {
     } else {
       res.json({ message: "error" });
     }
+  });
+});
+
+//Business Logic : Add Team
+app.post("/teams", (req, res) => {
+  console.log("here into BL: Add Team", req.body);
+  let teamObj = new Team(req.body);
+  teamObj.save();
+  res.json({ message: "Added with success" });
+});
+//Business Logic : GEt All Teams
+app.get("/teams", (req, res) => {
+  console.log("here into BL:Get All Teams");
+  Team.find().then((docs) => {
+    console.log("Here docs", docs);
+    res.json({ teams: docs });
   });
 });
 

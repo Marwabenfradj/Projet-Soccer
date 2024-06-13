@@ -1,92 +1,120 @@
-<header class="site-navbar py-4" role="banner">
-  <div class="container">
-    <div class="d-flex align-items-center">
-      <div class="site-logo">
-        <a href="index.html">
-          <img src="assets/images/logo.png" alt="Logo" />
-        </a>
-      </div>
-      <div class="ml-auto">
-        <nav
-          class="site-navigation position-relative text-right"
-          role="navigation"
-        >
-          <ul
-            class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block"
-          >
-            <li class="active">
-              <a routerLink="/" class="nav-link">Home</a>
-            </li>
-            <li>
-              <div class="dropdown">
-                <button
-                  class="btn btn-success dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Add
-                </button>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a routerLink="/add-match" class="dropdown-item"
-                      >Add Match</a
-                    >
-                  </li>
-                  <li>
-                    <a routerLink="/add-team" class="dropdown-item">Add Team</a>
-                  </li>
-                  <li>
-                    <a routerLink="/add-player" class="dropdown-item"
-                      >Add Player</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="ml-3">
-              <div class="dropdown">
-                <button
-                  class="btn btn-link success"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Admin
-                </button>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                  <li>
-                    <a routerLink="/table-match" class="nav-link"
-                      >Table Matches</a
-                    >
-                  </li>
-                  <li>
-                    <a routerLink="/table-teams" class="nav-link"
-                      >Table teams</a
-                    >
-                  </li>
-                  <li>
-                    <a routerLink="/table-players" class="nav-link"
-                      >Table players</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </li>
-
-            <li><a routerLink="/signUp" class="nav-link">signUp</a></li>
-            <li><a routerLink="/login" class="nav-link">login</a></li>
-            <li><a routerLink="/search" class="nav-link">search</a></li>
-          </ul>
-        </nav>
-
-        <a
-          href="#"
-          class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"
-          ><span class="icon-menu h3 text-white"></span
-        ></a>
+<div class="site-wrap">
+  <div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close">
+        <span class="icon-close2 js-menu-toggle"></span>
       </div>
     </div>
+    <div class="site-mobile-menu-body"></div>
   </div>
-</header>
+  <header class="site-navbar py-4" role="banner">
+    <div class="container">
+      <div class="d-flex align-items-center">
+        <div class="site-logo">
+          <a href="index.html">
+            <img src="assets/images/logo.png" alt="Logo" />
+          </a>
+        </div>
+        <div class="ml-auto">
+          <nav
+            class="site-navigation position-relative text-right"
+            role="navigation"
+          >
+            <ul
+              class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block"
+            >
+              <li>
+                <a routerLink="/" routerLinkActive="active" class="nav-link"
+                  >Home</a
+                >
+              </li>
+              <li class="ml-3" *ngIf="isLoggedIn() && user.role == 'admin'">
+                <div class="dropdown">
+                  <button
+                    class="btn btn-success dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Add
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a routerLink="/add-match" class="dropdown-item"
+                        >Add Match</a
+                      >
+                    </li>
+                    <li>
+                      <a routerLink="/add-team" class="dropdown-item"
+                        >Add Team</a
+                      >
+                    </li>
+                    <li>
+                      <a routerLink="/add-player" class="dropdown-item"
+                        >Add Player</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="ml-3" *ngIf="isLoggedIn() && user.role == 'admin'">
+                <div class="dropdown">
+                  <button
+                    class="btn btn-link success"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Admin
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li>
+                      <a routerLink="/table-match" class="nav-link"
+                        >Table Matches</a
+                      >
+                    </li>
+                    <li>
+                      <a routerLink="/table-teams" class="nav-link"
+                        >Table teams</a
+                      >
+                    </li>
+                    <li>
+                      <a routerLink="/table-players" class="nav-link"
+                        >Table players</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li>
+                <a routerLink="/contact" class="nav-link">contact</a>
+              </li>
+              <li *ngIf="!isLoggedIn()">
+                <a routerLink="/signUp" class="nav-link">sign Up</a>
+              </li>
+              <li *ngIf="!isLoggedIn()">
+                <a routerLink="/login" class="nav-link">login</a>
+              </li>
+              <li><a routerLink="/search" class="nav-link">search</a></li>
+              <li *ngIf="isLoggedIn()">
+                <a class="nav-link"
+                  >welcome {{ user.firstName }} {{ user.lastName }}</a
+                >
+              </li>
+              <li *ngIf="isLoggedIn()">
+                <a (click)="logOut()" class="nav-link"> Logout</a>
+              </li>
+            </ul>
+          </nav>
+
+          <a
+            href="#"
+            class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"
+            ><span class="icon-menu h3 text-white"></span
+          ></a>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>

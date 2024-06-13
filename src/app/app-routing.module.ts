@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signUp', component: SignUpComponent },
-  { path: 'signUp/admin', component: SignUpComponent },
+  { path: 'signUpAdmin', component: SignUpComponent },
   { path: 'add-match', component: AddMatchComponent },
   { path: 'table-match', component: TableMatchComponent },
   { path: 'match-detail/:id', component: MatchDetailComponent },
